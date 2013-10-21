@@ -33,5 +33,8 @@ task :test => [:syntax, :foodcritic, :codestyle, :spec]
 
 desc "release the cookbook via stove"
 task :release do
-  sh "bake -h"
+  puts "enter release version number [x.y.z]:"
+  if (version = STDIN.gets.chomp).match /\d+\.\d+\.\d+/
+    sh "bake #{version} --no-jira --no-github --no-changelog --no-upload --devodd -l info"
+  end
 end
